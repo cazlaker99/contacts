@@ -17,5 +17,9 @@ html
 				.collapse.navbar-collapse
 					ul.nav.navbar-nav
 						li.active
-							a(href='/') Home								
+							a(href='/') Home
+						li.active
+							a(href='/contacts') Contacts
+		if messages && messages.length > 0
+			.alert.alert-success #{messages}								
 		block content

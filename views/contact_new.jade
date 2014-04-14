@@ -1,0 +1,48 @@
+extends layout
+
+block content
+	#msgArea
+	.panel.panel-primary
+		.panel-heading #{pagetitle}
+		form#ContactForm( method="post")
+			.form-group
+				label(for='first') First:
+				input#first.form-control(type="text", placeholder='Enter First Name', name="first")
+			.form-group
+				label(for='last') Last:
+				input#last.form-control(type="text", placeholder='Enter Last Name', name="last")
+			.form-group
+				label(for='company') Company:
+				input#company.form-control(type="text", placeholder='Enter Company Name',name="company")
+			.form-group
+				label(for='jobtitle') Job Title:
+				input#jobtitle.form-control(type="text", placeholder='Enter Job Title', name="jobtitle")
+			.form-group
+				label(for='email') Email Address:
+				input#email.form-control(type="text", placeholder='Enter Email Address', name="email")
+			button.btn.btn-default#SaveButton(type='submit') Save
+	script.
+		$('#SaveButton').click(function(e) {
+			e.preventDefault();
+			$.ajax({
+				type: 'POST',
+				url: "/contacts/validate",
+				data: $("form").serialize(),
+				dataType: "json",
+				success: function (data) {
+					if (data.status == 'errors') {
+						$('#msgArea').html('');
+						$('.form-group').each(function() {
+							$(this).removeClass('has-error');
+						});
+						$('#msgArea').addClass('alert alert-danger');
+						$.each(data.fields, function(idx, row) {
+							$('#msgArea').append("<p>" + row.msg + "</p>");
+							$('#' + row.field).parent().addClass('has-error');
+						});
+					} else {
+						$('#ContactForm').submit();
+					}
+				}
+			});
+		});

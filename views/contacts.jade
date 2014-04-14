@@ -1,0 +1,22 @@
+extends layout
+block content
+	.span8
+		table.table.table-striped.table-hover.table-condensed
+			thead
+				tr
+					th Name
+					th Company
+					th Job Title
+					th Email
+			tbody
+				#contacts
+					- each contact in contacts
+						tr
+							td
+								a(href="/contacts/" + contact._id + "/edit")= contact.name.first + ' ' + contact.name.last
+							td= contact.company
+							td= contact.title
+							td= contact.email
+							td
+								a.btn.btn-primary.btn-xs(data_toggle="modal", onclick="return confirm('Are you sure want to delete this contact?');", href="/contact/" + contact._id + "/delete") Delete				
+	a(href="/contacts/new")!= "Add New Contact"
