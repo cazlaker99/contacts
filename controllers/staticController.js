@@ -1,3 +1,3 @@
 exports.index = function(req, res){
-	res.send("<p>Welcome!</p>");
+	res.render('index', {title: 'Contacts', message: 'Welcome!'});
 };

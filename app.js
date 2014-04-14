@@ -19,7 +19,10 @@ app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
 app.use(app.router);
+app.use(require('stylus').middleware('./public'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.locals.pretty = true;
 
 // development only
 if ('development' == app.get('env')) {
@@ -28,7 +31,11 @@ if ('development' == app.get('env')) {
 
 require('./routes')(app)
 
-app.listen(app.get('port'), function(){
-	console.log('Express server listening on port ' + app.get('port'));
-});
+module.exports = app;
+if (!module.parent) {
+	app.listen(app.get('port'), function(){
+		console.log('Express server listening on port ' + app.get('port'));
+	});
+}
+
 

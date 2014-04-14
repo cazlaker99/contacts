@@ -1,7 +1,21 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
-  body
-    block content
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		script(src='/javascripts/jquery-2.0.3.min.js')
+		script(src='/javascripts/bootstrap.min.js')
+	body
+		.navbar.navbar-inverse.navbar-fixed-top
+			.container
+				.navbar-header
+					button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+					a.navbar-brand(href='/') Contact Database
+				.collapse.navbar-collapse
+					ul.nav.navbar-nav
+						li.active
+							a(href='/') Home								
+		block content
